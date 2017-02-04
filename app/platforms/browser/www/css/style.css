@@ -1,0 +1,16 @@
+.content-block-title {
+  text-align: center;
+}
+
+.logo {
+  max-width: 60%;
+  height: auto
+}
+
+.score {
+  text-align: center;
+}
+
+.score-number {
+  opacity: 0.5;
+}
