@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'admin.general'
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,7 +58,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'admin', 'core', 'template'),
+            os.path.join(BASE_DIR, 'admin', 'core', 'templatess'),
+            os.path.join(BASE_DIR, 'admin', 'general', 'templates'),
         ],
         # 'DIRS': [],
         'APP_DIRS': True,
@@ -108,3 +109,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'admin', 'core', 'static')
 STATIC_URL = '/static/'
+
+MIDIA_ROOT = os.path.join(BASE_DIR, 'admin', 'general', 'midia')
+STATIC_URL = '/midia/'

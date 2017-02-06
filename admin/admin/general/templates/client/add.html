@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}
+    Novo cliente
+{% endblock %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+{% endblock %}
+
+{% block title %}
+    Novo cliente
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{% url 'admin:general:clients' %}">Clientes</a></li>
+    <li><strong><a>Novo</a></strong></li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <!-- left column -->
+
+        <form role="form" method="post">
+            {% csrf_token %}
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Informações do cliente</h3>
+                    </div>
+                    <!-- form start -->
+                    <div class="box-body">
+                        {{ form.as_p }}
+                    </div>
+
+                </div>
+                <!-- /.box -->
+
+            </div>
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Informações do cartão</h3>
+                    </div>
+                    <!-- form start -->
+                    <div class="box-body">
+                        {{ form_card }}
+                    </div>
+                    <div class="box-footer">
+                    </div>
+
+                </div>
+                <!-- /.box -->
+
+            </div>
+            <button type="submit" class="btn btn-success">Enviar</button>
+
+        </form>
+
+    </div>
+
+{% endblock %}
+
+{% block custom_js %}
+    <script src="{% static 'plugins/select2/select2.min.js' %}"></script>
+    <script>
+        $(function () {
+
+        $('.select-single').select2();
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                        toastr.success('{{ message }}');
+                    {% else %}
+                        toastr.error('{{ message }}');
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        });
+    </script>
+{% endblock %}

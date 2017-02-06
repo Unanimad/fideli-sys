@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}
+    Serviços
+{% endblock %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'plugins/datatables/dataTables.bootstrap.css' %}">
+{% endblock %}
+
+{% block title %}
+    Serviços
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{% url 'admin:general:clients' %}">Serviços</a></li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="listing" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Data do Cadastro</th>
+                            <th>Opções</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for instance in instances %}
+                            <tr>
+                                <td>{{ instance.name }}</td>
+                                <td>{{ instance.created_at }}</td>
+                                <td>
+                                    <a href="{% url 'admin:general:edit_service' instance.id %}">
+                                        <button class="btn btn-sm btn-warning" data-toggle="tooltip"
+                                                title="Editar">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Data do Cadastro</th>
+                            <th>Opções</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+{% endblock %}
+
+{% block custom_js %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.bootstrap.min.js' %}"></script>
+    <script>
+        $(function () {
+            $("#listing").DataTable();
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}
+    Novo serviço
+{% endblock %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.css' %}">
+{% endblock %}
+
+{% block title %}
+    Novo serviço
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{% url 'admin:general:services' %}">Serviços</a></li>
+    <li><strong><a>Novo</a></strong></li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" method="post">
+                    {% csrf_token %}
+                    <div class="box-body">
+                        {{ form.as_p }}
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-success">Enviar</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.box -->
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block custom_js %}
+    {% if messages %}
+        <script>
+            $(function () {
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                        toastr.success('{{ message }}');
+                    {% else %}
+                        toastr.error('{{ message }}');
+                    {% endif %}
+                {% endfor %}
+            });
+        </script>
+    {% endif %}
+{% endblock %}
