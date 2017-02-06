@@ -364,6 +364,18 @@ a.close_video_testing {
   .right_content {
     width: 30%;
   }
+  
+  #right .col-md-6 {
+    width: 100%
+  }
+  
+  #right .col-md-12, .stores {
+    width: 50%
+  }
+  
+  #right .stores {
+    width: 50%
+  }
 }
 
 @media screen and (max-width: 1300px) {
@@ -389,6 +401,9 @@ a.close_video_testing {
     width: 15%;
     float: right;
     padding: 0 1% 0 0;
+  }
+  .col-md-6 {
+    width: 100%
   }
 }
 

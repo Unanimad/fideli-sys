@@ -112,7 +112,7 @@
             modalCloseByOutside: false,
             actionsCloseByOutside: true,
             popupCloseByOutside: true,
-            modalPreloaderTitle: 'Loading... ',
+            modalPreloaderTitle: 'Carregando... ',
             modalStack: true,
             // Lazy Load
             imagesLazyLoadThreshold: 0,

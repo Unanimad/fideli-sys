@@ -19,8 +19,8 @@
       <div class="col-md-6">
         <div class="left_content">
           <h1><span>Fideli.</span>club</h1>
-          <div class="subtitle">Sua fidelidade em um único lugar!</div>
-          <p>UpMobile is an HTML mobile template created for a mobile website, web app, and integrated with solutions like phonegap, for a real native app. It is build using an original design concept, some amazing page animations and a perfect responsive code.</p>
+          <div class="subtitle">Fidelidade em um único lugar!</div>
+          <p>Agora você tem muito mais possibilidades para resgate e facilidades. Novos parceiros a todo o instante.</p>
 
           <h2>SÃO NOSSOS PARCEIROS</h2>
           <div class="clients">
@@ -71,47 +71,54 @@
       <div class="col-md-6">
         <div class="row">
 
-          <div class="col-md-6">
-            <div class="right_content">
-              <div class="iphone_bg">
-                <div class="mobile_wrap">
-                  <iframe id="frame" frameborder="no" border="0" scrolling="no" width="325px" height="580px"></iframe>
+          <div id="right">
+            <div class="col-md-6">
+              <div class="right_content">
+                <div class="iphone_bg">
+                  <div class="mobile_wrap">
+                    <iframe id="frame" frameborder="no" border="0" scrolling="no" width="325px" height="580px"></iframe>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-6">
-            <div class="info_content">
-              <h3>Escaneie o QRCode com o celular</h3>
-              <img src="dist/images/qrcode.png" alt="" title="" />
-              <div class="row">
+            <div class="col-md-6">
+              <div class="info_content">
                 <div class="col-md-12">
-                  <h3>Para seu cliente:</h3>
-                  <ul class="preview_list">
-                    <li>Gerenciamento de cartões</li>
-                    <li>Gerenciamento de promoções</li>
-                    <li>Atualização de cadastro</li>
-                  </ul>
-                </div>
-                <div class="col-md-12">
-                  <h3>Para seu negócio:</h3>
-                  <ul class="preview_list">
-                    <li>Gerenciamento de clientes</li>
-                    <li>Gerenciamento de cartões</li>
-                    <li>Gerenciamento de promoções</li>
-                    <li>Gerenciamento do regulamento</li>
-                    <li>Gerenciamento de serviços</li>
-                    <li>Atualização do cadastro</li>
-                  </ul>
+                  <h3>Escaneie o QRCode com o celular</h3>
+                  <div class="col-sm-6">
+                    <img class="img-responsive" src="dist/images/qrcode.png" />
+                  </div>
+                  <div class="col-sm-6">
+                    <img class="img-responsive" src="dist/images/play_store.png" />
+                    <br />
+                    <img class="img-responsive" src="dist/images/app_store.png" />
+                  </div>
                 </div>
 
-                <div class="col-md-6 stores">
-                  <img class="img-responsive" src="dist/images/play_store.png" />
-                  <img class="img-responsive" src="dist/images/app_store.png" />
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3>Para seu cliente:</h3>
+                    <ul class="preview_list">
+                      <li>Gerenciamento de cartões</li>
+                      <li>Gerenciamento de promoções</li>
+                      <li>Atualização de cadastro</li>
+                    </ul>
+                  </div>
+                  <div class="col-md-12">
+                    <h3>Para seu negócio:</h3>
+                    <ul class="preview_list">
+                      <li>Gerenciamento de clientes</li>
+                      <li>Gerenciamento de cartões</li>
+                      <li>Gerenciamento de promoções</li>
+                      <li>Gerenciamento do regulamento</li>
+                      <li>Gerenciamento de serviços</li>
+                      <li>Atualização do cadastro</li>
+                    </ul>
+                  </div>
+
                 </div>
 
               </div>
-
             </div>
           </div>
         </div>
@@ -122,18 +129,20 @@
   <script type="text/javascript" src="dist/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="dist/js/jquery.waterwheelCarousel.min.js"></script>
   <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
       var carousel = $("#carousel").waterwheelCarousel({
         flankingItems: 3,
         separation: 150
       });
     });
+
   </script>
   <script type="text/javascript" charset="utf-8">
     var $ = jQuery.noConflict();
-    $(document).ready(function () {
+    $(document).ready(function() {
       $("#frame").attr("src", "app/www/index.html");
     });
+
   </script>
 </body>
 
