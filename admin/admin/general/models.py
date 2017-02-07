@@ -64,7 +64,11 @@ class Service(models.Model):
 class Card(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     expire_at = models.DateTimeField(blank=True, null=True, verbose_name='Válido até')
+    converted_at = models.DateTimeField(blank=True, null=True, verbose_name='Convertido em')
+    expired = models.BooleanField(default=0, verbose_name='Expirado?')
     converted = models.BooleanField(default=0, verbose_name='Convertido?')
+    filled = models.BooleanField(default=0, verbose_name='Preenchido?')
+    reward = models.CharField(max_length=200, blank=True, null=True, verbose_name='Recompensa')
     company = models.ForeignKey(Company)
     client = models.ForeignKey(Client)
     service = models.ForeignKey(Service, verbose_name='Serviço')
@@ -76,3 +80,15 @@ class Card(models.Model):
 
     def __str__(self):
         return '#' + str(self.id)
+
+
+class Score(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    card = models.ForeignKey(Card)
+
+    class Meta:
+        verbose_name = 'Ponto'
+        verbose_name_plural = 'Pontos'
+
+    def __str__(self):
+        return str(self.created_at)

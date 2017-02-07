@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}
+    Cartões
+{% endblock %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'plugins/datatables/dataTables.bootstrap.css' %}">
+{% endblock %}
+
+{% block title %}
+    Cartões
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{% url 'admin:general:cards' %}">Cartões</a></li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="listing" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Telefone</th>
+                            <th>Recompensa</th>
+                            <th>Data do Cadastro</th>
+                            <th>Validade</th>
+                            <th>Opções</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for instance in instances %}
+                            <tr>
+                                <td>{{ instance.client }}</td>
+                                <td>{{ instance.client.phone }}</td>
+                                <td>{{ instance.service.reward }}</td>
+                                <td>{{ instance.created_at|date:"d/m/Y" }}</td>
+                                <td>{{ instance.expire_at|date:"d/m/Y" }}</td>
+                                <td>
+                                    {% if instance.filled %}
+                                        <a href="#" data-toggle="tooltip" title="Converter"
+                                           onclick="card_id({{ instance.id }})">
+                                            <button class="btn btn-sm btn-warning" data-toggle="modal"
+                                                    data-target="#convert_card">
+                                                <i class="fa fa-check"></i>
+                                            </button>
+                                        </a>
+                                    {% else %}
+                                        <a href="#" data-toggle="tooltip" title="Pontuar"
+                                           onclick="card_id({{ instance.id }})">
+                                            <button class="btn btn-sm btn-success" data-toggle="modal"
+                                                    data-target="#add_score">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Telefone</th>
+                            <th>Recompensa</th>
+                            <th>Data do Cadastro</th>
+                            <th>Validade</th>
+                            <th>Opções</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    <div id="convert_card" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Converter cartão</h4>
+                </div>
+                <form action="{% url 'admin:general:convert_card' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <input type="hidden" value="" name="card_id" id="card_id">
+                        <button type="submit" class="btn btn-success">Converter</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div id="add_score" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Pontuar cartão</h4>
+                </div>
+                <form action="{% url 'admin:general:add_score' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <label>Quantos pontos</label>
+                        <input type="number" name="times" class="form-control" value="1">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <input type="hidden" value="" name="card_id" id="card_id">
+                        <button type="submit" class="btn btn-success">Pontuar</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block custom_js %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.bootstrap.min.js' %}"></script>
+    <script src="{% static 'dist/js/pages/card.js' %}"></script>
+
+    <script>
+        $(function () {
+            $("#listing").DataTable();
+        });
+    </script>
+{% endblock %}

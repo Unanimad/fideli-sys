@@ -104,6 +104,43 @@ def delete_client(request):
     return redirect('/admin/general/client')
 
 
+def list_card(request):
+    template_name = 'card/list.html'
+
+    instances = Card.objects.filter(client__company__user=request.user).filter(converted=0)
+
+    context = {
+        'instances': instances
+    }
+
+    return render(request, template_name, context)
+
+
+def convert_card(request):
+    if request.method == 'POST':
+        card_id = request.POST['card_id']
+
+        card = Card.objects.get(id=card_id)
+
+        if datetime.datetime.now() > card.expire_at.replace(tzinfo=None):
+            card.expired = 1
+            card.reward = card.service.reward
+            card.save()
+
+            messages.error(request, 'Cartão expirado.')
+
+        else:
+            card.reward = card.service.reward
+            card.filled = 1
+            card.converted = 1
+            card.converted_at = datetime.datetime.now()
+            card.save()
+
+            messages.success(request, 'Cartão convertido.')
+
+    return redirect('/admin/genera/card')
+
+
 def list_service(request):
     template_name = 'service/list.html'
 
@@ -146,7 +183,7 @@ def edit_service(request, pk):
     instance = Service.objects.get(id=pk)
 
     if request.method == 'POST':
-        Service.objects.filter(id=pk).update(name=request.POST['name'])
+        Service.objects.filter(id=pk).update(name=request.POST['name'], reward=request.POST['reward'])
         instance = Service.objects.get(id=pk)
 
         messages.success(request, 'Atualizado com sucesso!')
@@ -210,3 +247,50 @@ def edit_card_configuration(request, pk):
     }
 
     return render(request, template_name, context)
+
+
+def add_score(request):
+    if request.method == 'POST':
+        card_id = request.POST['card_id']
+
+        card = Card.objects.get(id=card_id)
+
+        if datetime.datetime.now() > card.expire_at.replace(tzinfo=None):
+            card.expired = 1
+            card.reward = card.service.reward
+            card.save()
+
+            messages.error(request, 'Cartão expirado.')
+
+        else:
+            times = int(request.POST['times'])
+            scores = len(Score.objects.filter(card=card))
+            score = Score(card=card)
+
+            for x in range(times):
+
+                if scores < card.configuration.limit:
+                    score.save()
+                else:
+                    card.reward = card.service.reward
+                    card.filled = 1
+                    card.save()
+
+                    messages.success(request, 'Cartão completo.')
+
+                    expire_at = datetime.datetime.now() + datetime.timedelta(days=card.configuration.expire)
+
+                    new_card = Card(expire_at=expire_at, company=card.company, client=card.client,
+                                    service=card.service, configuration=card.configuration)
+
+                    new_card.save()
+
+                    card = new_card
+
+                    score = Score(card=card)
+                    score.save()
+
+            if score.id:
+                messages.success(request, 'Cadastrado com sucesso!')
+
+    return redirect('/admin/general/card')

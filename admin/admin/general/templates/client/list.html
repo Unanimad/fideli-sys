@@ -41,12 +41,8 @@
                                 <td>{{ instance.object.name }}</td>
                                 <td>{{ instance.object.phone }}</td>
                                 <td>{{ instance.converted }}</td>
-                                <td>{{ instance.object.created_at }}</td>
+                                <td>{{ instance.object.created_at|date:"d/m/Y" }}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-success" data-toggle="tooltip"
-                                            title="Novo cartão">
-                                        <i class="fa fa-credit-card"></i>
-                                    </button>
                                     <a href="{% url 'admin:general:edit_client' instance.object.id %}">
                                         <button class="btn btn-sm btn-warning" data-toggle="tooltip"
                                                 title="Editar">

@@ -16,4 +16,9 @@ urlpatterns = [
     url(r'^card_configuration/add/$', add_card_configuration, name='add_card_configuration'),
     url(r'^card_configuration/(?P<pk>\w+)/$', edit_card_configuration, name='edit_card_configuration'),
 
+    url(r'^card/$', list_card, name='cards'),
+    url(r'^card/convert/$', convert_card, name='convert_card'),
+
+    url(r'^score/add/$', add_score, name='add_score')
+
 ]

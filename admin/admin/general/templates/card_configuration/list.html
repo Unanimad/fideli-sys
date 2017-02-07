@@ -37,7 +37,7 @@
                         {% for instance in instances %}
                             <tr>
                                 <td> {{ instance }} </td>
-                                <td>{{ instance.created_at }}</td>
+                                <td>{{ instance.created_at|date:"d/m/Y" }}</td>
                                 <td>
                                     <a href="{% url 'admin:general:edit_card_configuration' instance.id %}">
                                         <button class="btn btn-sm btn-warning" data-toggle="tooltip"

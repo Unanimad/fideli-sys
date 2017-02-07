@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{% url 'admin:general:clients' %}">Serviços</a></li>
+    <li><a href="{% url 'admin:general:services' %}">Serviços</a></li>
 {% endblock %}
 
 {% block content %}
@@ -29,6 +29,7 @@
                         <thead>
                         <tr>
                             <th>Nome</th>
+                            <th>Recompensa</th>
                             <th>Data do Cadastro</th>
                             <th>Opções</th>
                         </tr>
@@ -37,6 +38,7 @@
                         {% for instance in instances %}
                             <tr>
                                 <td>{{ instance.name }}</td>
+                                <td>{{ instance.reward }}</td>
                                 <td>{{ instance.created_at }}</td>
                                 <td>
                                     <a href="{% url 'admin:general:edit_service' instance.id %}">
@@ -53,6 +55,7 @@
                         <tfoot>
                         <tr>
                             <th>Nome</th>
+                            <th>Recompensa</th>
                             <th>Data do Cadastro</th>
                             <th>Opções</th>
                         </tr>
