@@ -2,20 +2,21 @@
 {% load static %}
 
 {% block head_title %}
-    Novo cliente
+    Editar cliente
 {% endblock %}
 
 {% block custom_css %}
+    <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.css' %}">
     <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
 {% endblock %}
 
 {% block title %}
-    Novo cliente
+    Editar cliente
 {% endblock %}
 
 {% block breadcrumb %}
     <li><a href="{% url 'admin:general:clients' %}">Clientes</a></li>
-    <li><strong><a>Novo</a></strong></li>
+    <li><strong><a>Editar</a></strong></li>
 {% endblock %}
 
 {% block content %}
@@ -25,7 +26,7 @@
 
         <form role="form" method="post">
             {% csrf_token %}
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
@@ -39,25 +40,10 @@
                 </div>
                 <!-- /.box -->
 
-            </div>
-            <div class="col-md-6">
-                <!-- general form elements -->
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Informações do cartão</h3>
-                    </div>
-                    <!-- form start -->
-                    <div class="box-body">
-                        {{ form_card }}
-                    </div>
-                    <div class="box-footer">
-                    </div>
-
-                </div>
-                <!-- /.box -->
                 <button type="submit" class="btn btn-success">Enviar</button>
 
             </div>
+
 
         </form>
 
@@ -73,6 +59,15 @@
             $('#phone').mask('00 00000-0000');
 
             $('.select-single').select2();
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                        toastr.success('{{ message }}');
+                    {% else %}
+                        toastr.error('{{ message }}');
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
         });
     </script>
 {% endblock %}

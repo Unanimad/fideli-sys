@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{% static 'dist/css/skins/_all-skins.min.css' %}">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{% static 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.css' %}">
 
     {% block custom_css %}
     {% endblock %}
@@ -198,7 +199,23 @@
 <script src="{% static 'dist/js/app.min.js' %}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{% static 'dist/js/pages/dashboard.js' %}"></script>
+<script src="{% static 'dist/js/fideli.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
+
+<script>
+
+    $(function () {
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    toastr.success('{{ message }}');
+                {% else %}
+                    toastr.error('{{ message }}');
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    });
+</script>
 
 {% block custom_js %}
 {% endblock %}

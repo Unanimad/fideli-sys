@@ -16,6 +16,9 @@ Including another URLconf
 from django.conf.urls import url, include
 from .core.admin import admin_site
 
+from .core.views import login
+
 urlpatterns = [
     url(r'^admin/', include(admin_site.urls)),
+    url(r'^accounts/login/', login, name='login')
 ]

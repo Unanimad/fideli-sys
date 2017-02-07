@@ -7,7 +7,7 @@ class Company(models.Model):
     playStore = models.URLField(blank=True, null=True)
     appStore = models.URLField(blank=True, null=True)
     status = models.BooleanField(default=1)
-    image = models.ImageField(blank=True, null=True)
+    # image = models.ImageField(blank=True, null=True)
     user = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -63,6 +63,7 @@ class Service(models.Model):
 
 class Card(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
+    expire_at = models.DateTimeField(blank=True, null=True, verbose_name='Válido até')
     converted = models.BooleanField(default=0, verbose_name='Convertido?')
     company = models.ForeignKey(Company)
     client = models.ForeignKey(Client)
@@ -74,4 +75,4 @@ class Card(models.Model):
         verbose_name_plural = 'Cartões'
 
     def __str__(self):
-        return '# ' + str(self.int)
+        return '#' + str(self.id)

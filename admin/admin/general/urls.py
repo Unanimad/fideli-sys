@@ -5,6 +5,7 @@ from admin.general.views import *
 urlpatterns = [
     url(r'^client/$', list_client, name='clients'),
     url(r'^client/add/$', add_client, name='add_client'),
+    url(r'^client/delete/$', delete_client, name='delete_client'),
     url(r'^client/(?P<pk>\w+)/$', edit_client, name='edit_client'),
 
     url(r'^service/$', list_service, name='services'),

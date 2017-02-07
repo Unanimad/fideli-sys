@@ -1,4 +1,6 @@
-from django.shortcuts import render
+import datetime
+
+from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from .forms import *
@@ -7,9 +9,18 @@ from .forms import *
 def list_client(request):
     template_name = 'client/list.html'
 
+    instances = []
     context = {}
 
-    instances = Client.objects.filter(company__user=request.user)
+    objects = Client.objects.filter(company__user=request.user)
+
+    for object in objects:
+        instance = {
+            'object': object,
+            'converted': len(Card.objects.filter(client=object).filter(converted=1))
+        }
+
+        instances.append(instance)
 
     context['instances'] = instances
 
@@ -33,7 +44,11 @@ def add_client(request):
         client.save()
 
         if client.id:
-            card = Card(company=company, client=client, service=service, configuration=configuration)
+
+            expire_at = datetime.datetime.now() + datetime.timedelta(days=configuration.expire)
+
+            card = Card(expire_at=expire_at, company=company, client=client,
+                        service=service, configuration=configuration)
             card.save()
 
             messages.success(request, 'Cadastrado com sucesso!')
@@ -54,7 +69,7 @@ def add_client(request):
 
 
 def edit_client(request, pk):
-    template_name = 'client/add.html'
+    template_name = 'client/edit.html'
 
     instance = Client.objects.get(id=pk)
 
@@ -65,10 +80,28 @@ def edit_client(request, pk):
         messages.success(request, 'Atualizado com sucesso!')
 
     context = {
-        'form': ClientForm(instance=instance)
+        'form': ClientForm(instance=instance),
     }
 
     return render(request, template_name, context)
+
+
+def delete_client(request):
+    if request.method == 'POST':
+
+        client_id = int(request.POST['client_id'])
+
+        client = Client.objects.get(id=client_id)
+
+        if client.company.user == request.user:
+            client.delete()
+
+            messages.success(request, 'Deletado com sucesso!')
+
+        else:
+            messages.error(request, 'Sem permissão.')
+
+    return redirect('/admin/general/client')
 
 
 def list_service(request):

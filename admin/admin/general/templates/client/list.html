@@ -38,19 +38,26 @@
                         <tbody>
                         {% for instance in instances %}
                             <tr>
-                                <td>{{ instance.name }}</td>
-                                <td>{{ instance.phone }}</td>
-                                <td>Win 95+</td>
-                                <td>{{ instance.created_at }}</td>
+                                <td>{{ instance.object.name }}</td>
+                                <td>{{ instance.object.phone }}</td>
+                                <td>{{ instance.converted }}</td>
+                                <td>{{ instance.object.created_at }}</td>
                                 <td>
                                     <button class="btn btn-sm btn-success" data-toggle="tooltip"
                                             title="Novo cartão">
                                         <i class="fa fa-credit-card"></i>
                                     </button>
-                                    <a href="{% url 'admin:general:edit_client' instance.id %}">
+                                    <a href="{% url 'admin:general:edit_client' instance.object.id %}">
                                         <button class="btn btn-sm btn-warning" data-toggle="tooltip"
                                                 title="Editar">
                                             <i class="fa fa-pencil"></i>
+                                        </button>
+                                    </a>
+                                    <a href="#" data-tootle="tooltip" title="Deletar">
+                                        <button class="btn btn-sm btn-danger" data-toggle="modal"
+                                                data-target="#delete_client"
+                                                onclick="delete_client({{ instance.object.id }})">
+                                            <i class="fa fa-times"></i>
                                         </button>
                                     </a>
                                 </td>
@@ -77,9 +84,40 @@
     </div>
     <!-- /.row -->
 
+    <div id="delete_client" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Deletar cliente</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Deletando esse cliente, os seguintes registros serão removidos do banco de dados:</p>
+                    <ul>
+                        <li>Cartões</li>
+                        <li>Pontos</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <form action="{% url 'admin:general:delete_client' %}" method="POST" >
+                        {% csrf_token %}
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Fechar</button>
+                        <input type="hidden" value="" name="client_id" id="client_id">
+                        <button type="submit" class="btn btn-default">Deletar</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block custom_js %}
+    <script src="{% static 'dist/js/pages/client.js' %}"></script>
+
     <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'plugins/datatables/dataTables.bootstrap.min.js' %}"></script>
     <script>
