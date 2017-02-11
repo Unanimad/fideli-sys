@@ -71,6 +71,21 @@
                         <span class="pull-right-container"></span>
                     </a>
                 </li>
+                {% if request.user.is_superuser %}
+                <li>
+                    <a href="#">
+                        <i class="fa fa-building"></i> <span>Empresas</span>
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{% url 'admin:general:add_company' %}"><i class="fa fa-circle-o"></i> Cadastrar</a>
+                        </li>
+                        <li><a href="{% url 'admin:general:companies' %}"><i class="fa fa-circle-o"></i> Listar</a></li>
+                    </ul>
+                </li>
+                {% endif %}
                 <li>
                     <a href="#">
                         <i class="fa fa-users"></i> <span>Clientes</span>

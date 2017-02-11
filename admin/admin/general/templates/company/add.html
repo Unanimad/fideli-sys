@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}
+    Nova empresa
+{% endblock %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+{% endblock %}
+
+{% block title %}
+    Nova empresa
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{% url 'admin:general:companies' %}">Empresas</a></li>
+    <li><strong><a>Novo</a></strong></li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <!-- left column -->
+
+        <form role="form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Informações da empresa</h3>
+                    </div>
+                    <!-- form start -->
+                    <div class="box-body">
+                        {{ form.as_p }}
+                    </div>
+
+                </div>
+                <!-- /.box -->
+
+            </div>
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Informações de acesso</h3>
+                    </div>
+                    <!-- form start -->
+                    <div class="box-body">
+                        {{ form_user }}
+                    </div>
+                    <div class="box-footer">
+                    </div>
+
+                </div>
+                <!-- /.box -->
+                <button type="submit" class="btn btn-success">Enviar</button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+{% endblock %}
+
+{% block custom_js %}
+    <script src="{% static 'plugins/mask/jquery.mask.min.js' %}"></script>
+    <script src="{% static 'plugins/select2/select2.min.js' %}"></script>
+    <script>
+        $(function () {
+            $('.select-single').select2();
+        });
+    </script>
+{% endblock %}

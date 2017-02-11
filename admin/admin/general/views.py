@@ -3,7 +3,53 @@ import datetime
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
+from .utils import *
 from .forms import *
+
+
+def list_company(request):
+    template_name = 'company/list.html'
+
+    instances = Company.objects.all()
+
+    context = {
+        'instances': instances
+    }
+
+    return render(request, template_name, context)
+
+
+def add_company(request):
+
+    if request.user.is_superuser:
+
+        template_name = 'company/add.html'
+
+        context = {}
+
+        if request.method == 'POST':
+            name = request.POST['name']
+            username = request.POST['username']
+            password = request.POST['password']
+            image = request.FILES['image']
+
+            user = User.objects.create_user(username=username, password=password, first_name=name)
+            user.save()
+
+            company = Company(name=name, user=user, image=image)
+            company.token = create_token(name)
+
+            company.save()
+
+            messages.success(request, 'Cadastrado com sucesso!')
+
+        context['form'] = CompanyForm(auto_id=False)
+        context['form_user'] = UserForm(auto_id=False)
+
+        return render(request, template_name, context)
+
+    else:
+        return redirect('/admin')
 
 
 def list_client(request):

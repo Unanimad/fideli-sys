@@ -1,6 +1,51 @@
 from django import forms
+from django.contrib.auth.models import User
 
 from .models import *
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'password')
+        widgets = {
+            'username': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'required': True
+                }
+            ),
+            'password': forms.PasswordInput(
+                attrs={
+                    'class': 'form-control',
+                    'required': True
+                }
+            ),
+        }
+
+
+class CompanyForm(forms.ModelForm):
+    class Meta:
+        model = Company
+        fields = ('name', 'image', 'playStore', 'appStore')
+        widgets = {
+            'name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'required': True
+                }
+            ),
+            'playStore': forms.TextInput(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+            'appStore': forms.TextInput(
+                attrs={
+                    'class': 'form-control'
+                }
+            )
+        }
 
 
 class ClientForm(forms.ModelForm):

@@ -3,6 +3,9 @@ from django.conf.urls import url
 from admin.general.views import *
 
 urlpatterns = [
+    url(r'^company/$', list_company, name='companies'),
+    url(r'^company/add/$', add_company, name='add_company'),
+
     url(r'^client/$', list_client, name='clients'),
     url(r'^client/add/$', add_client, name='add_client'),
     url(r'^client/delete/$', delete_client, name='delete_client'),

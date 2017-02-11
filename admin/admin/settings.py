@@ -39,12 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'admin.core',
-    'admin.general'
+    'admin.general',
+
+    'corsheaders',
 ]
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -53,6 +56,26 @@ MIDDLEWARE_CLASSES = [
 ]
 
 ROOT_URLCONF = 'admin.urls'
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_WHITELIST = (
+    '*',
+)
+
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'token',
+    'username'
+)
 
 TEMPLATES = [
     {
@@ -111,4 +134,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'admin', 'core', 'static')
 STATIC_URL = '/static/'
 
 MIDIA_ROOT = os.path.join(BASE_DIR, 'admin', 'general', 'midia')
-STATIC_URL = '/midia/'
+MIDIA_URL = '/midia/'

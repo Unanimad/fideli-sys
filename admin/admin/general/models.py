@@ -1,13 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
+from admin.settings import MIDIA_ROOT
 
 
 class Company(models.Model):
     name = models.CharField(max_length=50, verbose_name='Nome')
+    token = models.CharField(max_length=40)
     playStore = models.URLField(blank=True, null=True)
     appStore = models.URLField(blank=True, null=True)
-    status = models.BooleanField(default=1)
-    # image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(upload_to=MIDIA_ROOT, blank=True, null=True, verbose_name='Imagem')
     user = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -22,7 +23,8 @@ class Company(models.Model):
 class Client(models.Model):
     name = models.CharField(max_length=50, verbose_name='Nome')
     phone = models.CharField(max_length=14, verbose_name='Telefone')
-    company = models.ForeignKey(Company)
+    company = models.ManyToManyField(Company)
+    user = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

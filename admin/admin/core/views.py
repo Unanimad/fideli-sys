@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect
@@ -26,8 +27,6 @@ def dashboard(request):
 def login(request):
     template_name = 'login.html'
 
-    context = {}
-
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
@@ -39,11 +38,11 @@ def login(request):
                 auth_login(request, user)
                 return HttpResponseRedirect('/admin')
             else:
-                context['msg'] = 'Conta inativa.'
+                messages.success(request, 'Conta inativa.')
         else:
-            context['msg'] = 'Usuário ou senha incorretos.'
+            messages.success(request, 'Usuário ou senha incorretos.')
 
-    return render(request, template_name, context)
+    return render(request, template_name)
 
 
 def logout(request):
