@@ -8,169 +8,94 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <title>Fideli.club</title>
-  <link rel="stylesheet" href="css/framework7.material.min.css">
-  <link rel="stylesheet" href="css/framework7.material.colors.css">
-  <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,500,700" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="css/material-icons.css">
-  <link rel="stylesheet" href="css/kitchen-sink.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="img/icon.png">
+  <link rel="stylesheet" href="dist/css/framework7.material.min.css">
+  <link rel="stylesheet" href="dist/css/material-icons.css">
+  <link rel="stylesheet" href="dist/css/framework7.material.colors.css">
+  <link rel="stylesheet" href="dist/css/kitchen-sink.css">
+  <link rel="stylesheet" href="dist/css/style.css">
 
   <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 </head>
 
-<body class="framework7-root theme-orange layout-dark">
+<body class="framework7-root">
   <div class="statusbar-overlay"></div>
   <div class="panel-overlay"></div>
-  
-  <div class="panel panel-left panel-cover">
-    <div class="view navbar-fixed">
-      <div class="pages">
-        <div data-page="panel-left" class="page">
-          <div class="navbar">
-            <div class="navbar-inner">
-              <div class="center">Menu</div>
-            </div>
-          </div>
-          <div class="page-content">
-            <div class="list-block">
-              <ul>
-                <li>
-                  <a href="#" class="item-link close-panel" onclick="do_logoff()">
-                    <div class="item-content">
-                      <div class="item-inner">
-                        <div class="item-title">Sair</div>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div class="content-block">
-              <p><img src="" /></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div class="views">
     <div class="view view-main">
-      <div class="pages navbar-fixed">
+      <div class="pages navbar-fixed ">
         <div data-page="index" class="page">
-          <div class="navbar">
-            <div class="navbar-inner">
-              <div class="center">Pizzaria e boteco Itabaiana</div>
-              <div class="right"><a href="#" class="open-panel link icon-only"><i class="icon icon-bars"></i></a></div>
-            </div>
+
+          <div class="content-block-title">
+            <img src="company/logo.png" class="logo" />
           </div>
-          <div class="page-content">
-            <div class="content-block-title"><img src="img/logo.png" class="logo" /></div>
-            <div class="content-block-title">
+
+          <div class="content-block">
+            <div class="list-block">
+
               <div class="row">
-                <div class="col-100">
-                  Pontos: 9
-                  <br /> Restantes: 1
+
+                <div class="col-50 score">
+                  <a href="cards.html" class="item-link">
+                    <div class="card">
+                      <div class="card-content">
+                        <div class="card-content-inner">
+                          <i class="material-icons">credit_card</i>
+                          <br /> Cartões
+                        </div>
+                      </div>
+                    </div>
+                  </a>
                 </div>
-              </div>
-            </div>
 
-            <div class="content-block">
-              <div class="list-block">
-
-                <div class="row">
-
-                  <div class="col-50 score">
+                <div class="col-50 score">
+                  <a href="company.html" class="item-link">
                     <div class="card">
                       <div class="card-content">
-                        <div class="card-content-inner">14/12/2016</div>
+                        <div class="card-content-inner">
+                          <i class="material-icons">business</i>
+                          <br /> Contato
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="col-50 score">
+                  <a href="edit.html" class="item-link">
+                    <div class="card">
+                      <div class="card-content">
+                        <div class="card-content-inner">
+                          <i class="material-icons">mode_edit</i>
+                          <br />Meus dados
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="col-50 score" onclick="do_logoff()">
+                  <div class="card">
+                    <div class="card-content">
+                      <div class="card-content-inner">
+                        <i class="material-icons">exit_to_app</i>
+                        <br />Sair
                       </div>
                     </div>
                   </div>
-
-                  <div class="col-50 score">
-                    <div class="card">
-                      <div class="card-content">
-                        <div class="card-content-inner">14/12/2016</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-50 score">
-                    <div class="card">
-                      <div class="card-content">
-                        <div class="card-content-inner">14/12/2016</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-50 score">
-                    <div class="card">
-                      <div class="card-content">
-                        <div class="card-content-inner">14/12/2016</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-50 score">
-                    <div class="card">
-                      <div class="card-content">
-                        <div class="card-content-inner">14/12/2016</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-50 score">
-                    <div class="card">
-                      <div class="card-content">
-                        <div class="card-content-inner">14/12/2016</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-50 score">
-                    <div class="card">
-                      <div class="card-content">
-                        <div class="card-content-inner">14/12/2016</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-50 score">
-                    <div class="card">
-                      <div class="card-content">
-                        <div class="card-content-inner">14/12/2016</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-50 score">
-                    <div class="card">
-                      <div class="card-content">
-                        <div class="card-content-inner">14/12/2016</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-50 score">
-                    <div class="card">
-                      <div class="card-content">
-                        <div class="card-content-inner"><span class="score-number" id="score_10">10</span></div>
-                      </div>
-                    </div>
-                  </div>
-
                 </div>
 
               </div>
-            </div>
-
-            <div class="content-block">
 
             </div>
-
           </div>
+
+          <div class="content-block">
+            <div class="text-center">
+              <img src="dist/img/2code.png" height="30px">
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -180,7 +105,7 @@
     <div class="view">
       <div class="page">
         <div class="page-content login-screen-content">
-          <div class="login-screen-title"><img src="img/logo.png" class="logo" /></div>
+          <div class="login-screen-title"><img src="company/logo.png" class="logo" /></div>
           <form id="login_form">
             <div class="list-block inputs-list">
               <ul>
@@ -204,18 +129,20 @@
     </div>
   </div>
 
-  <script type="text/javascript" src="js/framework7.js"></script>
-  <script type="text/javascript" src="js/jquery.min.js"></script>
-  <script type="text/javascript" src="js/jquery.mask.min.js"></script>
-  <script type="text/javascript" src="js/kitchen-sink.js"></script>
-  <script type="text/javascript" src="js/my-app.js"></script>
-  <script type="text/javascript" src="js/ws.js"></script>
-  <script type="text/javascript" src="js/script.js"></script>
-  
+  <script type="text/javascript" src="dist/js/framework7.js"></script>
+  <script type="text/javascript" src="dist/js/kitchen-sink.js"></script>
+  <script type="text/javascript" src="dist/js/jquery.min.js"></script>
+  <script type="text/javascript" src="company/config.js"></script>
+  <script type="text/javascript" src="dist/js/jquery.mask.min.js"></script>
+  <script type="text/javascript" src="dist/js/ws.js"></script>
+  <script type="text/javascript" src="dist/js/my-app.js"></script>
+  <script type="text/javascript" src="dist/js/script.js"></script>
+
   <script>
-  $(function(){
-    $('.phone').mask('00 90000-0000');  
-  });
+    $(function() {
+      $('.phone').mask('00 00000-0000');
+    });
+
   </script>
 </body>
 
