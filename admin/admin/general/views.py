@@ -1,5 +1,6 @@
 import datetime
 
+from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
@@ -34,6 +35,7 @@ def add_company(request):
             image = request.FILES['image']
 
             user = User.objects.create_user(username=username, password=password, first_name=name)
+            user.is_staff = True
             user.save()
 
             company = Company(name=name, user=user, image=image)
@@ -68,7 +70,12 @@ def list_client(request):
 
         instances.append(instance)
 
+    card_form = CardForm(auto_id=False)
+    card_form.fields["service"].queryset = Service.objects.filter(company__user=request.user)
+    card_form.fields["configuration"].queryset = CardConfiguration.objects.filter(company__user=request.user)
+
     context['instances'] = instances
+    context['form_card'] = card_form
 
     return render(request, template_name, context)
 
@@ -86,21 +93,44 @@ def add_client(request):
         service = Service.objects.get(id=service)
         configuration = CardConfiguration.objects.get(id=configuration)
 
-        client = Client(name=name, phone=phone, company=company)
-        client.save()
+        try:
+            user = User.objects.create_user(phone, None, 123456)
 
-        if client.id:
+            client = Client(name=name, phone=phone, user=user)
+            client.save()
+            client.company.add(company)
+            client.save()
 
-            expire_at = datetime.datetime.now() + datetime.timedelta(days=configuration.expire)
+        except IntegrityError as e:
+            user = User.objects.get(username=phone)
 
-            card = Card(expire_at=expire_at, company=company, client=client,
-                        service=service, configuration=configuration)
-            card.save()
+            client = Client.objects.get(user=user)
+            client.company.add(company)
+            client.save()
 
-            messages.success(request, 'Cadastrado com sucesso!')
+        if user.is_staff:
+            messages.error(request, 'Favor informar outro número')
 
         else:
-            messages.warning(request, 'Falha ao cadastrar.')
+
+            if client.id:
+
+                card = Card.objects.filter(client=client).filter(service=service).order_by('-expire_at')[0]
+
+                if card.expired is False:
+                    card.expired = True
+                    card.save()
+
+                expire_at = datetime.datetime.now() + datetime.timedelta(days=configuration.expire)
+
+                card = Card(expire_at=expire_at, company=company, client=client,
+                            service=service, configuration=configuration)
+                card.save()
+
+                messages.success(request, 'Cadastrado com sucesso!')
+
+            else:
+                messages.warning(request, 'Falha ao cadastrar.')
 
     card_form = CardForm(auto_id=False)
     card_form.fields["service"].queryset = Service.objects.filter(company__user=request.user)
@@ -139,8 +169,10 @@ def delete_client(request):
 
         client = Client.objects.get(id=client_id)
 
-        if client.company.user == request.user:
-            client.delete()
+        company = Company.objects.get(user=request.user)
+
+        if client.company.all()[0].user == request.user:
+            client.company.remove(company)
 
             messages.success(request, 'Deletado com sucesso!')
 
@@ -153,13 +185,42 @@ def delete_client(request):
 def list_card(request):
     template_name = 'card/list.html'
 
-    instances = Card.objects.filter(client__company__user=request.user).filter(converted=0)
+    instances = Card.objects.filter(client__company__user=request.user).filter(converted=0).filter(expired=0)
 
     context = {
         'instances': instances
     }
 
     return render(request, template_name, context)
+
+
+def add_card(request):
+    template_name = 'client/list.html'
+
+    if request.method == 'POST':
+        client_id = request.POST['client_id']
+        service_id = request.POST['service']
+        configuration_id = request.POST['configuration']
+
+        company = Company.objects.get(user=request.user)
+        client = Client.objects.get(id=client_id)
+        service = Service.objects.get(id=service_id)
+        configuration = CardConfiguration.objects.get(id=configuration_id)
+
+        card = Card.objects.filter(client=client).filter(service=service).order_by('-expire_at')[0]
+
+        card.expired = 1
+        card.save()
+
+        expire_at = datetime.datetime.now() + datetime.timedelta(days=configuration.expire)
+
+        new_card = Card(expire_at=expire_at, company=company, client=client,
+                        service=service, configuration=configuration)
+        new_card.save()
+
+        messages.success(request, 'Cadastrado com sucesso!')
+
+    return render(request, template_name)
 
 
 def convert_card(request):
@@ -309,11 +370,19 @@ def add_score(request):
             messages.error(request, 'Cartão expirado.')
 
         else:
-            times = int(request.POST['times'])
-            scores = len(Score.objects.filter(card=card))
+            post_times = request.POST['times']
+
+            if post_times == '' or post_times < 1:
+                times = 1
+            else:
+                times = int(post_times)
+
             score = Score(card=card)
 
             for x in range(times):
+
+                scores = len(Score.objects.filter(card=card))
+                score = Score(card=card)
 
                 if scores < card.configuration.limit:
                     score.save()
