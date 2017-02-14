@@ -12,6 +12,12 @@
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "club.fideli.app"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "club.fideli.app"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "club.fideli.app"
         }
     },
     "dependent_plugins": {}

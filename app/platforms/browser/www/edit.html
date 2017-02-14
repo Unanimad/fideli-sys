@@ -10,26 +10,15 @@
     </div>
   </div>
   <div class="page-content">
-    <form class="list-block inputs-list">
+    <form class="list-block inputs-list" id="edit_form">
       <ul>
         <li>
           <div class="item-content">
             <div class="item-media"><i class="icon material-icons">person_outline</i></div>
             <div class="item-inner">
-              <div class="item-title floating-label">Nome</div>
+              <div class="item-title">Nome</div>
               <div class="item-input">
-                <input type="text" name="first_name" placeholder="" />
-              </div>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="item-content">
-            <div class="item-media"><i class="icon material-icons">call</i></div>
-            <div class="item-inner">
-              <div class="item-title floating-label">Telefone</div>
-              <div class="item-input">
-                <input type="text" name="username" id="phone" placeholder="" />
+                <input type="text" name="name" id="name" placeholder="" />
               </div>
             </div>
           </div>
@@ -40,7 +29,7 @@
             <div class="item-inner">
               <div class="item-title floating-label">Senha</div>
               <div class="item-input">
-                <input type="password" name="username" placeholder="" />
+                <input type="password" name="password" placeholder="" />
               </div>
             </div>
           </div>
@@ -48,7 +37,7 @@
         <li>
           <div class="item-content">
             <div class="item-inner">
-              <a href="#" class="button button-fill button-raised">Atualizar</a>
+              <a href="#" class="button button-fill button-raised" onclick="do_edit()">Atualizar</a>
             </div>
           </div>
         </li>

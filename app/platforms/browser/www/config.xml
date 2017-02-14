@@ -1,18 +1,23 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="club.fideli.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>App</name>
+<widget id="club.fideli.pizzariaebotecoitabaiana" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Pizzaria e Boteco Itabaiana</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+      Gerenciamento de fidelidade.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="contato@2code.com.br" href="http://2code.com.br">
+      2Code
     </author>
     <content src="index.html" />
+    <icon src="www/company/logo.png" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
+    <allow-intent href="tel:*" launch-external="yes" />
+    <access launch-external="yes" origin="http://*/*" />
+    <access launch-external="yes" origin="tel:*" />
+    <preference name="Fullscreen" value="false" />
+    <preference name="Orientation" value="portrait" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarBackgroundColor" value="#333" />
+    <preference name="StatusBarStyle" value="lightcontent" />
 </widget>

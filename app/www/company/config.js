@@ -1,5 +1,5 @@
 var COMPANY = new Object;
 
-COMPANY.token = "6576675c72dee038a2c6500e84359fca748465b1";
+COMPANY.token = "ab651acb75db8ceef81de8da25a7ffe15a9e2abe";
 COMPANY.theme = "theme-orange";
 COMPANY.layout = "layout-dark";
