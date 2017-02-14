@@ -29,6 +29,7 @@
                         <thead>
                         <tr>
                             <th>Nome</th>
+                            <th>Token</th>
                             <th>Status</th>
                             <th>Data do Cadastro</th>
                             <th>Opções</th>
@@ -38,6 +39,7 @@
                         {% for instance in instances %}
                             <tr>
                                 <td>{{ instance.name }}</td>
+                                <td>{{ instance.token }}</td>
                                 <td>{{ instance.user.is_active }}</td>
                                 <td>{{ instance.created_at }}</td>
                                 <td>
@@ -55,6 +57,7 @@
                         <tfoot>
                         <tr>
                             <th>Nome</th>
+                            <th>Token</th>
                             <th>Status</th>
                             <th>Data do Cadastro</th>
                             <th>Opções</th>

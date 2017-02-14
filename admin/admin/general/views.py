@@ -86,6 +86,7 @@ def add_client(request):
     if request.method == 'POST':
         name = request.POST['name']
         phone = request.POST['phone']
+        password = request.POST['password']
         service = request.POST['service']
         configuration = request.POST['configuration']
 
@@ -94,7 +95,7 @@ def add_client(request):
         configuration = CardConfiguration.objects.get(id=configuration)
 
         try:
-            user = User.objects.create_user(phone, None, 123456)
+            user = User.objects.create_user(phone, None, password)
 
             client = Client(name=name, phone=phone, user=user)
             client.save()

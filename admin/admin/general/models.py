@@ -23,6 +23,7 @@ class Company(models.Model):
 class Client(models.Model):
     name = models.CharField(max_length=50, verbose_name='Nome')
     phone = models.CharField(max_length=14, verbose_name='Telefone')
+    password = models.CharField(max_length=8, verbose_name='Senha')
     company = models.ManyToManyField(Company)
     user = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
