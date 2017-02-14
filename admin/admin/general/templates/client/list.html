@@ -46,7 +46,8 @@
                                 <td>
                                     <a href="#" data-toggle="tooltip" title="Novo cartão">
                                         <button class="btn btn-sm btn-success" data-toggle="modal"
-                                                data-target="#add_card">
+                                                data-target="#add_card"
+                                                onclick="save_client({{ instance.object.id }})">
                                             <i class="fa fa-credit-card"></i>
                                         </button>
                                     </a>
@@ -59,7 +60,7 @@
                                     <a href="#" data-tootle="tooltip" title="Deletar">
                                         <button class="btn btn-sm btn-danger" data-toggle="modal"
                                                 data-target="#delete_client"
-                                                onclick="delete_client({{ instance.object.id }})">
+                                                onclick="save_client({{ instance.object.id }})">
                                             <i class="fa fa-times"></i>
                                         </button>
                                     </a>

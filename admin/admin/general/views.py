@@ -115,16 +115,20 @@ def add_client(request):
 
             if client.id:
 
-                card = Card.objects.filter(client=client).filter(service=service).order_by('-expire_at')[0]
+                cards = Card.objects.filter(client=client).filter(service=service).order_by('-expire_at')
 
-                if card.expired is False:
-                    card.expired = True
-                    card.save()
+                if len(cards) > 0:
+
+                    if cards[0].expired is False:
+                        cards[0].expired = True
+                        cards[0].save()
 
                 expire_at = datetime.datetime.now() + datetime.timedelta(days=configuration.expire)
 
                 card = Card(expire_at=expire_at, company=company, client=client,
                             service=service, configuration=configuration)
+
+                card.reward = service.reward
                 card.save()
 
                 messages.success(request, 'Cadastrado com sucesso!')
@@ -265,10 +269,11 @@ def add_service(request):
 
     if request.method == 'POST':
         name = request.POST['name']
+        reward = request.POST['reward']
 
         company = Company.objects.get(user=request.user)
 
-        service = Service(name=name, company=company)
+        service = Service(name=name, reward=reward, company=company)
         service.save()
 
         if service.id:
