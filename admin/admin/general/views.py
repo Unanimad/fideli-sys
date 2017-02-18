@@ -21,7 +21,6 @@ def list_company(request):
 
 
 def add_company(request):
-
     if request.user.is_superuser:
 
         template_name = 'company/add.html'
@@ -32,7 +31,7 @@ def add_company(request):
             name = request.POST['name']
             username = request.POST['username']
             password = request.POST['password']
-            image = request.FILES['image']
+            image = request.FILES.get('image', '')
 
             user = User.objects.create_user(username=username, password=password, first_name=name)
             user.is_staff = True
@@ -43,15 +42,36 @@ def add_company(request):
 
             company.save()
 
+            if request.POST['cep'] and company.id:
+                cep = request.POST['cep']
+                address = request.POST['address']
+                number = request.POST['number']
+                complement = request.POST['complement']
+                neighborhood = request.POST['neighborhood']
+                state = request.POST['state']
+                city = request.POST['city']
+
+                address = Address(cep=cep, address=address, number=number, complement=complement,
+                                  neighborhood=neighborhood,
+                                  state=state, city=city, company=company)
+
+                address.save()
+
+                if address.id:
+                    pass
+                else:
+                    messages.error(request, 'Falha ao cadastrar endereço!')
+
             messages.success(request, 'Cadastrado com sucesso!')
 
         context['form'] = CompanyForm(auto_id=False)
         context['form_user'] = UserForm(auto_id=False)
+        context['form_address'] = AddressForm(auto_id=False)
 
         return render(request, template_name, context)
 
     else:
-        return redirect('/admin')
+        return redirect('/admin/genera/company')
 
 
 def list_client(request):
@@ -378,7 +398,7 @@ def add_score(request):
         else:
             post_times = request.POST['times']
 
-            if post_times == '' or post_times < 1:
+            if str(post_times) == '' or int(post_times) < 1:
                 times = 1
             else:
                 times = int(post_times)

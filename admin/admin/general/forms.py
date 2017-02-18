@@ -75,6 +75,21 @@ class ClientForm(forms.ModelForm):
         }
 
 
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = ('cep', 'address', 'number', 'complement', 'neighborhood', 'complement', 'state', 'city')
+        widgets = {
+            'cep': forms.TextInput(attrs={'class': 'form-control', 'id': 'cep'}),
+            'address': forms.TextInput(attrs={'class': 'form-control', 'id': 'address'}),
+            'number': forms.TextInput(attrs={'class': 'form-control', 'id': 'number'}),
+            'complement': forms.TextInput(attrs={'class': 'form-control', 'id': 'complement'}),
+            'neighborhood': forms.TextInput(attrs={'class': 'form-control', 'id': 'neighborhood'}),
+            'state': forms.TextInput(attrs={'class': 'form-control', 'id': 'state'}),
+            'city': forms.TextInput(attrs={'class': 'form-control', 'id': 'city'})
+        }
+
+
 class ServiceForm(forms.ModelForm):
     class Meta:
         model = Service

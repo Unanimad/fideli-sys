@@ -29,7 +29,6 @@
                         <thead>
                         <tr>
                             <th>Nome</th>
-                            <th>Token</th>
                             <th>Status</th>
                             <th>Data do Cadastro</th>
                             <th>Opções</th>
@@ -39,9 +38,8 @@
                         {% for instance in instances %}
                             <tr>
                                 <td>{{ instance.name }}</td>
-                                <td>{{ instance.token }}</td>
-                                <td>{{ instance.user.is_active }}</td>
-                                <td>{{ instance.created_at }}</td>
+                                <td>{{ instance.user.is_active|yesno:"Ativo,Inativo" }}</td>
+                                <td>{{ instance.created_at|date:"d/m/Y" }}</td>
                                 <td>
                                     <a href="{% url 'admin:general:edit_service' instance.id %}">
                                         <button class="btn btn-sm btn-warning" data-toggle="tooltip"
@@ -49,6 +47,10 @@
                                             <i class="fa fa-pencil"></i>
                                         </button>
                                     </a>
+                                    <button class="btn btn-sm btn-success" data-toggle="tooltip" title="Copiar token"
+                                            onclick="save_token('{{ instance.token }}')">
+                                        <i class="fa fa-lock"></i>
+                                    </button>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -57,7 +59,6 @@
                         <tfoot>
                         <tr>
                             <th>Nome</th>
-                            <th>Token</th>
                             <th>Status</th>
                             <th>Data do Cadastro</th>
                             <th>Opções</th>

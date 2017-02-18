@@ -36,6 +36,25 @@ class Client(models.Model):
         return self.name
 
 
+class Address(models.Model):
+    address = models.CharField(max_length=200, blank=True, verbose_name='Endereço')
+    number = models.CharField(max_length=5, blank=True, verbose_name='Número')
+    neighborhood = models.CharField(max_length=100, blank=True, verbose_name='Bairro')
+    cep = models.CharField(max_length=9, blank=True, verbose_name='CEP')
+    complement = models.CharField(max_length=300, blank=True, verbose_name='Complemento')
+    state = models.CharField(max_length=2, blank=True, null=True, verbose_name='Estado')
+    city = models.CharField(max_length=200, blank=True, null=True, verbose_name='Município')
+
+    company = models.ForeignKey(Company, verbose_name='Empresa')
+
+    class Meta:
+        verbose_name = 'Endereço'
+        verbose_name_plural = 'Endereços'
+
+    def __str__(self):
+        return self.address
+
+
 class CardConfiguration(models.Model):
     expire = models.IntegerField(verbose_name='Válidade do cartão em dias')
     limit = models.IntegerField(verbose_name='Limite de pontos para troca')
